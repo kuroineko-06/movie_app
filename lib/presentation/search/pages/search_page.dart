@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: BasicAppbar(
-        title: Text("Search", style: TextStyle(fontSize: 23)),
+        title: Text("Tìm kiếm", style: TextStyle(fontSize: 23)),
       ),
       body: Padding(
         padding: EdgeInsets.all(13),

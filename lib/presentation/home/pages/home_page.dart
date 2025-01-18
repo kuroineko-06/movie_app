@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/common/helper/navigation/app_navigation.dart';
 import 'package:movie_app/common/widgets/appbar/app_bar.dart';
 import 'package:movie_app/core/configs/assets/app_vectors.dart';
-import 'package:movie_app/presentation/auth/pages/sign_in.dart';
 import 'package:movie_app/presentation/home/pages/list_details/list_anime_movie_page.dart';
 import 'package:movie_app/presentation/home/pages/list_details/list_series_movie_page.dart';
 import 'package:movie_app/presentation/home/pages/list_details/list_single_movie_page.dart';
@@ -16,6 +15,7 @@ import 'package:movie_app/presentation/home/widgets/popular_tv.dart';
 import 'package:movie_app/presentation/home/widgets/series_movie.dart';
 import 'package:movie_app/presentation/home/widgets/single_movie.dart';
 import 'package:movie_app/presentation/home/widgets/trending_movie.dart';
+import 'package:movie_app/presentation/setting/pages/setting_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     'Phim Lẻ',
     'Hoạt Hình',
     'TV Shows',
-    'Đăng Xuất',
+    'Cài Đặt'
   ];
 
   @override
@@ -59,7 +59,10 @@ class _HomePageState extends State<HomePage> {
                     items: _options.map((String option) {
                       return PopupMenuItem<String>(
                         value: option,
-                        child: Text(option),
+                        child: Text(
+                          option,
+                          style: TextStyle(fontSize: 18),
+                        ),
                       );
                     }).toList(),
                   ).then((value) {
@@ -140,46 +143,22 @@ class _HomePageState extends State<HomePage> {
   void _handleSelection(String value) {
     switch (value) {
       case 'Phim Bộ':
-        AppNavigator.push(context, ListSeriesMoviePage());
+        AppNavigator.push(context, const ListSeriesMoviePage());
         break;
       case 'Phim Lẻ':
-        AppNavigator.push(context, ListSingleMoviePage());
+        AppNavigator.push(context, const ListSingleMoviePage());
         print('Selected: Phim Le');
         break;
       case 'Hoạt Hình':
-        AppNavigator.push(context, ListAnimeMoviePage());
+        AppNavigator.push(context, const ListAnimeMoviePage());
         print('Selected: Hoathinh');
         break;
       case 'TV Shows':
-        AppNavigator.push(context, ListTvShowsPage());
+        AppNavigator.push(context, const ListTvShowsPage());
         print('Selected: TV Shows');
         break;
-      case 'Đăng Xuất':
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Bạn muốn đăng xuất 😢'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: Text('Từ chối'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Future.delayed(Duration(seconds: 2));
-                    AppNavigator.pushAndRemove(
-                        context, SignInPage()); // Close the dialog
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-        print('Selected: Logout');
+      case 'Cài Đặt':
+        AppNavigator.push(context, SettingPage());
         break;
     }
   }

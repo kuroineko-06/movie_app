@@ -27,15 +27,19 @@ class _ListMoviePageState extends State<ListSingleMoviePage> {
           selectedPageNumber =
               state.movies.content.paramsEntity.paginationEntity.currentPage;
           return Scaffold(
-            appBar: const BasicAppbar(
+            appBar: BasicAppbar(
               hideBack: false,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(state.movies.content.seoOnPage.titleHead),
+              ),
             ),
             body: Column(
               children: [
                 _listMovie(state),
                 const SizedBox(height: 20),
                 _paginationPage(state),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
               ],
             ),
           );
@@ -50,6 +54,14 @@ class _ListMoviePageState extends State<ListSingleMoviePage> {
 
   Widget _paginationPage(SingleMovieLoaded state) {
     return NumberPagination(
+      controlButtonSize: Size(35, 35),
+      numberButtonSize: Size(35, 35),
+      navigationButtonSpacing: 0,
+      sectionSpacing: 1,
+      buttonRadius: 10,
+      betweenNumberButtonSpacing: 0,
+      selectedButtonColor: Colors.red,
+      unSelectedButtonColor: Colors.amber,
       onPageChanged: (int pageNumber) {
         setState(() {
           selectedPageNumber = pageNumber;
@@ -58,7 +70,7 @@ class _ListMoviePageState extends State<ListSingleMoviePage> {
           context.read<SingleMovieCubit>().getSingleMovie(selectedPageNumber);
         });
       },
-      visiblePagesCount: 8,
+      visiblePagesCount: 6,
       totalPages: state.movies.content.paramsEntity.paginationEntity.totalPages,
       currentPage: selectedPageNumber,
     );

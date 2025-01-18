@@ -10,11 +10,13 @@ import 'package:movie_app/presentation/home/bloc/trending_cubit.dart';
 import 'package:movie_app/presentation/home/pages/list_details/list_single_movie_page.dart';
 import 'package:movie_app/presentation/search/bloc/search_cubit.dart';
 import 'package:movie_app/presentation/search/pages/search_page.dart';
+import 'package:movie_app/presentation/setting/bloc/setting_cubit.dart';
+import 'package:movie_app/presentation/setting/pages/setting_page.dart';
 import 'package:movie_app/presentation/splash/bloc/splash_cubit.dart';
 import 'package:movie_app/presentation/splash/pages/splash.dart';
 import 'package:movie_app/service_locator.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   runApp(const MyApp());
@@ -50,6 +52,16 @@ class MyApp extends StatelessWidget {
               AnimeMovieCubit()..getAnimeMovie(1), // Initialize the cubit here
           child:
               const ListSingleMoviePage(), // Ensure ListMoviePage is a child of BlocProvider
+        ),
+        BlocProvider(
+          create: (context) =>
+              SettingCubit()..getUserData(''), // Initialize the cubit here
+          child:
+              const SettingPage(), // Ensure ListMoviePage is a child of BlocProvider
+        ),
+        BlocProvider(
+          create: (context) => SettingCubit(), // Initialize the cubit here
+          child: Container(), // Ensure ListMoviePage is a child of BlocProvider
         ),
         BlocProvider(
           create: (context) => TrendingCubit()

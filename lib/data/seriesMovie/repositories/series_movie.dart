@@ -14,6 +14,7 @@ class SeriesMovieRepositoryImpl extends SeriesMovieRepository {
       return Left(error);
     }, (data) {
       var movies = SeriesMovieMapper.toEntity(SeriesMovieModel.fromJson(data));
+
       return Right(movies);
     });
   }

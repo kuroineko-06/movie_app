@@ -27,8 +27,12 @@ class _ListAnimeMoviePageState extends State<ListAnimeMoviePage> {
           selectedPageNumber =
               state.anime.content.params.paginationEntity.currentPage;
           return Scaffold(
-            appBar: const BasicAppbar(
+            appBar: BasicAppbar(
               hideBack: false,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(state.anime.content.seoOnPage.titleHead),
+              ),
             ),
             body: Column(
               children: [
@@ -50,6 +54,14 @@ class _ListAnimeMoviePageState extends State<ListAnimeMoviePage> {
 
   Widget _paginationPage(AnimeMovieLoaded state) {
     return NumberPagination(
+      controlButtonSize: Size(35, 35),
+      numberButtonSize: Size(35, 35),
+      navigationButtonSpacing: 0,
+      sectionSpacing: 1,
+      buttonRadius: 10,
+      betweenNumberButtonSpacing: 0,
+      selectedButtonColor: Colors.red,
+      unSelectedButtonColor: Colors.amber,
       onPageChanged: (int pageNumber) {
         setState(() {
           selectedPageNumber = pageNumber;
@@ -58,7 +70,7 @@ class _ListAnimeMoviePageState extends State<ListAnimeMoviePage> {
           context.read<AnimeMovieCubit>().getAnimeMovie(selectedPageNumber);
         });
       },
-      visiblePagesCount: 8,
+      visiblePagesCount: 6,
       totalPages: state.anime.content.params.paginationEntity.totalPages,
       currentPage: selectedPageNumber,
     );

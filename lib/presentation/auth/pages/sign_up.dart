@@ -9,11 +9,25 @@ import 'package:movie_app/presentation/auth/pages/sign_in.dart';
 import 'package:movie_app/service_locator.dart';
 import 'package:reactive_button/reactive_button.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
 
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isPasswordHidden = true;
+
+  void _togglePasswordView() {
+    setState(() {
+      _isPasswordHidden = !_isPasswordHidden;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +62,7 @@ class SignUpPage extends StatelessWidget {
 
   Widget _signUpText() {
     return const Text(
-      "Sign Up",
+      "Đăng kí",
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
     );
   }
@@ -63,33 +77,44 @@ class SignUpPage extends StatelessWidget {
   Widget _passwordField() {
     return TextField(
       controller: _passwordController,
-      decoration: const InputDecoration(hintText: 'Password'),
+      obscureText: _isPasswordHidden,
+      decoration: InputDecoration(
+        hintText: 'Mật khẩu',
+        suffixIcon: IconButton(
+          icon: Icon(
+            _isPasswordHidden ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: _togglePasswordView,
+        ),
+      ),
     );
   }
 
   Widget _signInButton(BuildContext context) {
     return ReactiveButton(
-        title: 'Sign Up',
+        title: 'Đăng kí',
         activeColor: AppColors.primary,
         height: 45,
-        onPressed: () async => sl<SignupUseCase>().call(
-            params: SignupReqParams(
-                email: _emailController.text,
-                password: _passwordController.text)),
+        onPressed: () async {
+          sl<SignupUseCase>().call(
+              params: SignupReqParams(
+                  email: _emailController.text,
+                  password: _passwordController.text));
+          DisplayMessage.successMessage("Đăng kí thành công", context);
+          AppNavigator.pushAndRemove(context, SignInPage());
+        },
         onSuccess: () {},
-        onFailure: (error) {
-          DisplayMessage.errorMessage(error, context);
-        });
+        onFailure: (error) {});
   }
 
   Widget _signInText(BuildContext context) {
     return Text.rich(TextSpan(children: [
-      const TextSpan(text: "Do you have account? "),
+      const TextSpan(text: "Bạn đã có tài khoản? "),
       TextSpan(
           style: const TextStyle(
             color: Colors.blue,
           ),
-          text: 'Sign In',
+          text: 'Đăng nhập',
           recognizer: TapGestureRecognizer()
             ..onTap = () {
               AppNavigator.push(context, SignInPage());

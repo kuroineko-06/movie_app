@@ -10,6 +10,8 @@ import 'package:movie_app/data/search/repositories/search.dart';
 import 'package:movie_app/data/search/sources/search.dart';
 import 'package:movie_app/data/seriesMovie/repositories/series_movie.dart';
 import 'package:movie_app/data/seriesMovie/sources/series_movie.dart';
+import 'package:movie_app/data/setting/repositories/setting.dart';
+import 'package:movie_app/data/setting/sources/setting_service.dart';
 import 'package:movie_app/data/singleMovie/repositories/single_movie.dart';
 import 'package:movie_app/data/singleMovie/sources/single_movie.dart';
 import 'package:movie_app/data/tv/repositories/tv.dart';
@@ -27,6 +29,9 @@ import 'package:movie_app/domain/search/repositories/search.dart';
 import 'package:movie_app/domain/search/usecases/get_search.dart';
 import 'package:movie_app/domain/seriesMovie/repositories/series_movie.dart';
 import 'package:movie_app/domain/seriesMovie/usecases/get_series_movie.dart';
+import 'package:movie_app/domain/setting/repositories/setting.dart';
+import 'package:movie_app/domain/setting/usecase/setting_edit_user.dart';
+import 'package:movie_app/domain/setting/usecase/setting_get_user.dart';
 import 'package:movie_app/domain/singleMovie/repositories/single_movie.dart';
 import 'package:movie_app/domain/singleMovie/usecases/get_single_movie.dart';
 import 'package:movie_app/domain/tv/repositories/tv.dart';
@@ -45,6 +50,7 @@ void setupServiceLocator() {
   sl.registerSingleton<SeriesMovieService>(SeriesMovieApiServiceImpl());
   sl.registerSingleton<AnimeService>(AnimeApiServiceImpl());
   sl.registerSingleton<SearchService>(SearchApiServiceImpl());
+  sl.registerSingleton<SettingService>(SettingApiServiceImpl());
 
   //respositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
@@ -54,6 +60,7 @@ void setupServiceLocator() {
   sl.registerSingleton<SeriesMovieRepository>(SeriesMovieRepositoryImpl());
   sl.registerSingleton<AnimeRepository>(AnimeRepositoryImpl());
   sl.registerSingleton<SearchRepository>(SearchRepositoryImpl());
+  sl.registerSingleton<SettingRepository>(SettingRepositoryImpl());
 
   //usecase
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
@@ -66,4 +73,6 @@ void setupServiceLocator() {
   sl.registerSingleton<GetSeriesMovieUseCase>(GetSeriesMovieUseCase());
   sl.registerSingleton<GetAnimeMovieUseCase>(GetAnimeMovieUseCase());
   sl.registerSingleton<GetSearchUseCase>(GetSearchUseCase());
+  sl.registerSingleton<SettingEditUserUseCase>(SettingEditUserUseCase());
+  sl.registerSingleton<SettingGetUserUseCase>(SettingGetUserUseCase());
 }

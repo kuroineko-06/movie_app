@@ -28,6 +28,10 @@ class _ListTrendingMoviePageState extends State<ListTrendingMoviePage> {
           return Scaffold(
             appBar: const BasicAppbar(
               hideBack: false,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text('Phim mới | Phim mới cập nhật | Phim mới hay nhất'),
+              ),
             ),
             body: Column(
               children: [
@@ -49,6 +53,14 @@ class _ListTrendingMoviePageState extends State<ListTrendingMoviePage> {
 
   Widget _paginationPage(TrendingMovieLoaded state) {
     return NumberPagination(
+      controlButtonSize: Size(35, 35),
+      numberButtonSize: Size(35, 35),
+      navigationButtonSpacing: 0,
+      sectionSpacing: 1,
+      buttonRadius: 10,
+      betweenNumberButtonSpacing: 0,
+      selectedButtonColor: Colors.red,
+      unSelectedButtonColor: Colors.amber,
       onPageChanged: (int pageNumber) {
         setState(() {
           selectedPageNumber = pageNumber;
@@ -57,7 +69,7 @@ class _ListTrendingMoviePageState extends State<ListTrendingMoviePage> {
           context.read<TrendingCubit>().getTrendingMovies(selectedPageNumber);
         });
       },
-      visiblePagesCount: 8,
+      visiblePagesCount: 6,
       totalPages: state.movies.content.pagination.totalPages,
       currentPage: selectedPageNumber,
     );

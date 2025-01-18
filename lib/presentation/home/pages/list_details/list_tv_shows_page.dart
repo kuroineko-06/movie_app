@@ -26,8 +26,12 @@ class _ListTvShowsPageState extends State<ListTvShowsPage> {
         if (state is PopularTVLoaded) {
           selectedPageNumber = state.tv.data.params.pagination.currentPage;
           return Scaffold(
-            appBar: const BasicAppbar(
+            appBar: BasicAppbar(
               hideBack: false,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(state.tv.data.seoOnPage.titleHead),
+              ),
             ),
             body: Column(
               children: [
@@ -49,6 +53,14 @@ class _ListTvShowsPageState extends State<ListTvShowsPage> {
 
   Widget _paginationPage(PopularTVLoaded state) {
     return NumberPagination(
+      controlButtonSize: Size(35, 35),
+      numberButtonSize: Size(35, 35),
+      navigationButtonSpacing: 0,
+      sectionSpacing: 1,
+      buttonRadius: 10,
+      betweenNumberButtonSpacing: 0,
+      selectedButtonColor: Colors.red,
+      unSelectedButtonColor: Colors.amber,
       onPageChanged: (int pageNumber) {
         setState(() {
           selectedPageNumber = pageNumber;
@@ -57,7 +69,7 @@ class _ListTvShowsPageState extends State<ListTvShowsPage> {
           context.read<PopularTVCubit>().getPopularTV(selectedPageNumber);
         });
       },
-      visiblePagesCount: 8,
+      visiblePagesCount: 6,
       totalPages: state.tv.data.params.pagination.totalPages,
       currentPage: selectedPageNumber,
     );

@@ -15,7 +15,7 @@ class SearchField extends StatelessWidget {
           context.read<SearchCubit>().getSearch(value);
         }
       },
-      decoration: InputDecoration(hintText: "Search..."),
+      decoration: InputDecoration(hintText: "Nhập tên phim ....."),
     );
   }
 }

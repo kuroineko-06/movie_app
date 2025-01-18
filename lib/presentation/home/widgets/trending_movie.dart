@@ -1,12 +1,31 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:movie_app/core/configs/assets/app_images.dart';
+import 'package:movie_app/common/helper/navigation/app_navigation.dart';
 import 'package:movie_app/presentation/home/bloc/trending_cubit.dart';
 import 'package:movie_app/presentation/home/bloc/trending_state.dart';
+import 'package:movie_app/presentation/movies/pages/detail_pages.dart';
 
-class TrendingMovies extends StatelessWidget {
+class TrendingMovies extends StatefulWidget {
   const TrendingMovies({super.key});
+
+  @override
+  State<TrendingMovies> createState() => _TrendingMoviesState();
+}
+
+class _TrendingMoviesState extends State<TrendingMovies> {
+  bool _isExpanded = false;
+
+  void _handleTap(String imageUrl) {
+    if (_isExpanded) {
+      AppNavigator.push(context, DetailPages(slug: imageUrl));
+    } else {
+      // Expand the image
+      setState(() {
+        _isExpanded = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +42,7 @@ class TrendingMovies extends StatelessWidget {
                     .map((item) => item.posterUrl)
                     .toList(),
                 isAssets: false,
-                autoPlay: false,
+                autoPlay: true,
                 sliderHeight: 300,
                 imageFitMode: BoxFit.cover,
                 showIndicator: true,

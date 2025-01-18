@@ -46,8 +46,15 @@ class _DetailPagesState extends State<DetailPages> {
             return Container(
               color: AppColors.background,
               child: Scaffold(
-                appBar: const BasicAppbar(
+                appBar: BasicAppbar(
                   hideBack: false,
+                  title: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      state.movies.movie.name,
+                      style: const TextStyle(fontSize: 23),
+                    ),
+                  ),
                 ),
                 body: SingleChildScrollView(
                   controller: _scrollController, // Attach the controller

@@ -43,7 +43,7 @@ class DetailsMovie extends StatelessWidget {
           Column(
             children: [
               const SizedBox(
-                height: 5,
+                height: 0,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -58,7 +58,7 @@ class DetailsMovie extends StatelessWidget {
                       color: Colors.purple[500]),
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 0),
               Text(
                 originName,
                 textAlign: TextAlign.center,
