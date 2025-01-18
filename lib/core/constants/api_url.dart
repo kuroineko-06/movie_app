@@ -1,6 +1,7 @@
 class ApiUrl {
-  static const baseUrl = 'http://192.168.79.23:3000/';
-  // 'https://backendmovieapp-production-32eb.up.railway.app/';
+  static const baseUrl =
+      // 'http://192.168.79.23:3000/';
+      'https://backendmovieapp-production-32eb.up.railway.app/';
 
   static const signup = 'api/v1/auth/signup';
   static const signin = 'api/v1/auth/signin';
